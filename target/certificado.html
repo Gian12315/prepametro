@@ -1,0 +1,31 @@
+<!DOCTYPE html><html data-theme="light" lang="es"><head><meta charset="utf-8" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><title>Preparatoria Metropolitana</title><link href="/styles/1d962b29d358/style.css" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" /><script src="/scripts/dist/6303a6683770/bulma.js"></script></head><body><div><section class="hero is-medium" style="background:center top/cover url(&apos;/images/380dfb3030fd/fachada.png&apos;);;"><div class="hero-head"><div class="is-flex is-justify-content-space-around"><div><a class="pl-3" href="https://www.facebook.com/profile.php?id=100063620186389"><i class="fa-brands fa-facebook"></i></a><a class="pl-3" href="mailto:prepametropolitanatam@gmail.com"><i class="fa-solid fa-envelope"></i></a></div><div class="is-italic has-text-weight-light"><i class="fa-solid fa-phone has-text-link"></i><span class="pl-2 has-text-white">(833) 288 7233</span></div></div></div><div class="hero-body"><div class="container has-text-centered"><h1 class="title is-size-1 has-text-white">Preparatoria Metropolitana</h1></div></div><div class="hero-foot"><nav aria-label="main navigation" class="navbar is-link" role="navigation"><div class="navbar-brand"><a aria-expanded="false" aria-label="menu" class="navbar-burger" role="button"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a></div><div class="navbar-menu is-justify-content-space-evenly is-size-5"><a class="navbar-item has-text-white" href="/">Inicio</a><a class="navbar-item has-text-white" href="/quienessomos.html">¿Quienes somos?</a><a class="navbar-item has-text-white" href="/niveles.html">Niveles</a><a class="navbar-item has-text-white" href="/instalaciones.html">Instalaciones</a><a class="navbar-item has-text-white" href="/ubicacion.html">Ubicación</a><a class="navbar-item has-text-white" href="/contacto.html">Contacto</a><a class="navbar-item has-text-white" href="/certificado.html">Certificado</a></div></nav></div></section></div><div class="container px-6 my-6"><div class="box"><h1 class="title">Verifica la validez de tu cerficado</h1><p>En esta pagina puede validar los certificados generados por la preparatoria Metropolitana, para esto, ingresa el folio en el certificado en el siguiente campo de texto:</p><form class="form"><div class="field has-addons has-addons-centered"><div class="control"><input class="input" id="input" placeholder="Folio de tu certificado:" type="text" /></div><div class="control"><button class="button" id="search">Buscar</button></div></div></form><p><strong>Nota: </strong>Si se acaba de generar tu certificado, puede tardar un tiempo máximo de 3 días para ser reflejado en el sistema.</p><script>document.getElementById('search').addEventListener("click", function(e) {
+    e.preventDefault();
+    var searchTerm = document.getElementById('input').value;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', '/certificates/certificates.txt', true);
+    xmlhttp.onreadystatechange = () => {
+        if (xmlhttp.readyState == XMLHttpRequest.DONE && xmlhttp.status == 200) {
+            var result = xmlhttp.responseText;
+            var found = 0;
+            var keypairs = result.split('\n');
+            for (const keypair of keypairs) {
+
+                var info = keypair.split('=');
+                var currentId = info[0];
+                var currentLink = info[1];
+                if (currentId == searchTerm) {
+                    found = 1;
+                    window.open(currentLink);
+                    break;
+                }
+            }
+
+            if (found != 1) {
+                alert('No se encontro el certificado.');
+            }
+        }
+
+    }
+    xmlhttp.send();
+});
+</script></div></div></body></html>

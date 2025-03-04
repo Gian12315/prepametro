@@ -104,7 +104,7 @@
          [:section.section
           [:div.columns.is-vcentered.is-6
            [:div.column
-            [:div.content
+            [:div
              [:h1.title.is-1 "Valores"]
              [:dl.is-size-5
               [:dt.has-text-weight-bold "Excelencia"]
@@ -139,26 +139,47 @@
 
 (defn location-page [request]
   (->> (h/html
-         [:div "HOLA A TODOS"])
+         [:h1.title "Ven a conocernos"]
+         [:figure.image.is-16by9
+           [:iframe.has-ratio {:src "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1571.071458711787!2d-97.8539092324088!3d22.212001465394554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d7f73ef9c8d26b%3A0xbef9855eff35982b!2sPreparatoria%20Metropolitana%20Inc.%20Ala%20Uat!5e0!3m2!1ses-419!2smx!4v1741056828321!5m2!1ses-419!2smx"
+                               :allowfullscreen ""
+                               :loading "lazy"
+                               :referrerpolicy "no-referrer-when-downgrade"}]])
     (layout-page request)))
 
 (defn contact-page [request]
   (->> (h/html
-         [:div.notification.is-success.is-hidden
+         [:div#success-notification.notification.is-success.is-hidden
           [:button.delete]
           "Gracias por ponerte en contacto con nosotros, te responderemos tan pronto nos sea posible."]
+         [:div#error-notification.notification.is-error.is-hidden
+          [:button.delete]
+          "Ha ocurrido un error al enviar el formulario, intentelo de nuevo mas tarde."]
          [:h1.title "Contactanos"]
-         [:form.static-form
-           [:div.field
-            [:label.label "Correo"]
-            [:div.control.has-icons-left
-              [:input.input {:type "text" :placeholder "correo@mail.com" :name "email"}]
-              [:span.icon.is-small.is-left
-               [:i.fas.fa-envelope]]]]
-           [:div.field
-            [:label:label "Nombre"]
-            [:div.control
-             [:input.input {:type "text" :placeholder "bla" :name "algo"}]]]])
+         [:div.content
+           [:p "Puedes preguntarnos cualquier duda que tengas acerca de nuestra institución a través del siguiente formulario"]]
+         [:div.columns.is-centered
+          [:div.column.is-three-fifths
+           [:form.static-form
+             [:div.field
+              [:label.label "Correo"]
+              [:div.control.has-icons-left
+                [:input.input {:type "text" :placeholder "correo@mail.com" :name "email"}]
+                [:span.icon.is-small.is-left
+                 [:i.fas.fa-envelope]]]]
+             [:div.field
+              [:label.label "Nombre"]
+              [:div.control.has-icons-left
+               [:input.input {:type "text" :placeholder "Nombre completo" :name "nombre"}
+                [:span.icon.is-small.is-left
+                 [:i.fas.fa-circle-user]]]]]
+             [:div.field
+              [:label.label "Mensaje"]
+              [:div.control
+               [:textarea.textarea {:placeholder "Escribe tu mensaje aquí" :name "mensaje"}]]]
+             [:div.field
+              [:div.control
+               [:input.input.button {:type "button" :placeholder "Escribe tu mensaje aquí" :value "Enviar"}]]]]]])
 
     (layout-page request)))
 
